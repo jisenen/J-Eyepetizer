@@ -16,11 +16,47 @@ object ActivityControlUtil {
     /**
      * 将Activity压栈
      */
-    fun pushActivity(activity:WeakReference<Activity>?){
+    fun pushActivity(activity: WeakReference<Activity>?) {
         activityStack.push(activity)
     }
 
-    fun removeActivity(activity:WeakReference<Activity>?){
+    /**
+     * Activity出栈
+     */
+    fun removeActivity(activity: WeakReference<Activity>?) {
         activityStack.remove(activity)
+    }
+
+    /**
+     * 指定位置的Activity出栈
+     */
+    fun removeActivity(activityIndex: Int) {
+        if (activityStack.size > activityIndex) activityStack.removeAt(activityIndex)
+    }
+
+    /**
+     * 将栈中Activity移除至栈顶
+     */
+    fun removeToTop() {
+        val end = activityStack.size
+        val start = 1
+        for (i in end - 1 downTo start) {
+            val mActivity = activityStack[i].get()
+            if (null != mActivity && !mActivity.isFinishing) {
+                mActivity.finish()
+            }
+        }
+    }
+
+    /**
+     * 移除全部的Activity(用于整个应用退出)
+     */
+    fun removeAll() {
+        for (activity in activityStack) {
+            val mActivity = activity.get()
+            if (null != mActivity && !mActivity.isFinishing) {
+                mActivity.finish()
+            }
+        }
     }
 }
