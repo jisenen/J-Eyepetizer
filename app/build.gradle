@@ -23,6 +23,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -37,6 +42,12 @@ dependencies {
 
     //分包
     implementation 'com.android.support:multidex:1.0.3'
+    //EventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //沉浸式状态栏
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    //MMKV
+    implementation 'com.tencent:mmkv-static:1.2.7'
 
     //腾讯
 
@@ -44,4 +55,5 @@ dependencies {
 
     //WorkManager
     implementation 'androidx.work:work-runtime:2.3.4'
+
 }

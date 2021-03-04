@@ -3,6 +3,7 @@ package com.xhgjky.jeyepetizer.app
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.tencent.mmkv.MMKV
 
 
 /**
@@ -23,7 +24,8 @@ class MyApplication :Application(){
     override fun onCreate() {
         super.onCreate()
         context = this
-
+        //初始化MMKV(可以自定义MMKV的根目录)
+        MMKV.initialize(this)
     }
 
     companion object{
