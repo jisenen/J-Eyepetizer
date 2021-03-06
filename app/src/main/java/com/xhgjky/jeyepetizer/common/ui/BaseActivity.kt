@@ -5,12 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
+import com.xhgjky.jeyepetizer.R
+
 import com.xhgjky.jeyepetizer.extension.logD
 import com.xhgjky.jeyepetizer.util.ActivityControlUtil
+import com.xhgjky.jeyepetizer.util.ShareUtil
 import org.greenrobot.eventbus.EventBus
+
 import java.lang.ref.WeakReference
 
 
@@ -99,10 +106,40 @@ open class BaseActivity :AppCompatActivity(){
         EventBus.getDefault().unregister(this)
     }
 
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        setStatusBarBackground(R.color.colorPrimaryDark)
+        setupViews()
+    }
+
+    override fun setContentView(layoutView: View) {
+        super.setContentView(layoutView)
+        setStatusBarBackground(R.color.colorPrimaryDark)
+        setupViews()
+    }
+
+    protected open fun setupViews() {
+        val navigateBefore = findViewById<ImageView>(R.id.ivNavigateBefore)
+        val tvTitle = findViewById<TextView>(R.id.tvTitle)
+        navigateBefore?.setOnClickListener { finish() }
+        tvTitle?.isSelected = true  //获取焦点，实现跑马灯效果。
+
+    }
+
     /**
      * 设置状态栏背景色
      */
     open fun setStatusBarBackground(@ColorRes statusBarColor: Int) {
         ImmersionBar.with(this).autoStatusBarDarkModeEnable(true, 0.2f).statusBarColor(statusBarColor).fitsSystemWindows(true).init()
+    }
+
+    /**
+     * 调用系统原生分享
+     *
+     * @param shareContent 分享内容
+     * @param shareType SHARE_MORE=0，SHARE_QQ=1，SHARE_WECHAT=2，SHARE_WEIBO=3，SHARE_QQZONE=4
+     */
+    protected fun share(shareContent: String, shareType: Int) {
+        ShareUtil.share(this, shareContent, shareType)
     }
 }
