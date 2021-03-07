@@ -14,7 +14,7 @@
         android:layout_height="@dimen/actionBarSize"
         android:padding="14dp"
         android:src="@drawable/ic_navigate_before_black_44dp"/>
-    <com.xhgjky.jeyepetizer.common.view.TypefaceTextView
+    <com.mylearn.jeyepetizer.common.view.TypefaceTextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

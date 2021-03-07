@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.xhgjky.jeyepetizer.extension
+package com.mylearn.jeyepetizer.extension
 
 import android.widget.Toast
-import com.xhgjky.jeyepetizer.app.MyApplication
+import com.mylearn.jeyepetizer.app.MyApplication
 
 
 /**

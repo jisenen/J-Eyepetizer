@@ -1,4 +1,4 @@
-package com.xhgjky.jeyepetizer
+package com.mylearn.jeyepetizer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

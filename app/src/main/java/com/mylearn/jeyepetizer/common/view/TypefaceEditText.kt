@@ -1,10 +1,9 @@
-package com.xhgjky.jeyepetizer.common.view
+package com.mylearn.jeyepetizer.common.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
-import com.xhgjky.jeyepetizer.R
+import com.mylearn.jeyepetizer.R
 
 /**
  * @Author: JSS

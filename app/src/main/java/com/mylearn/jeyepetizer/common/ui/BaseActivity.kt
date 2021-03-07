@@ -1,21 +1,19 @@
-package com.xhgjky.jeyepetizer.common.ui
+package com.mylearn.jeyepetizer.common.ui
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
-import com.xhgjky.jeyepetizer.R
+import com.mylearn.jeyepetizer.R
 
-import com.xhgjky.jeyepetizer.extension.logD
-import com.xhgjky.jeyepetizer.util.ActivityControlUtil
-import com.xhgjky.jeyepetizer.util.ShareUtil
+import com.mylearn.jeyepetizer.extension.logD
+import com.mylearn.jeyepetizer.util.ActivityControlUtil
+import com.mylearn.jeyepetizer.util.ShareUtil
 import org.greenrobot.eventbus.EventBus
 
 import java.lang.ref.WeakReference

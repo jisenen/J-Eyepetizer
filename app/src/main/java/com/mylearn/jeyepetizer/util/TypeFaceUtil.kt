@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.xhgjky.jeyepetizer.util
+package com.mylearn.jeyepetizer.util
 
 import android.graphics.Typeface
-import com.xhgjky.jeyepetizer.app.MyApplication
+import com.mylearn.jeyepetizer.app.MyApplication
 
 /**
  * 自定义字体工具类。

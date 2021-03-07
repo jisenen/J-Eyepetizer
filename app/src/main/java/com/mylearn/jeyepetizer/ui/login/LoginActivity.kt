@@ -1,9 +1,8 @@
-package com.xhgjky.jeyepetizer.ui.login
+package com.mylearn.jeyepetizer.ui.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.xhgjky.jeyepetizer.R
-import com.xhgjky.jeyepetizer.common.ui.BaseActivity
+import com.mylearn.jeyepetizer.R
+import com.mylearn.jeyepetizer.common.ui.BaseActivity
 
 class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

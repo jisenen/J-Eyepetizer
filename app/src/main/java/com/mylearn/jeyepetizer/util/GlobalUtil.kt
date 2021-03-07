@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.xhgjky.jeyepetizer.util
+package com.mylearn.jeyepetizer.util
 
 import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
@@ -26,8 +26,8 @@ import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
 import com.tencent.mmkv.MMKV
-import com.xhgjky.jeyepetizer.app.MyApplication
-import com.xhgjky.jeyepetizer.extension.logW
+import com.mylearn.jeyepetizer.app.MyApplication
+import com.mylearn.jeyepetizer.extension.logW
 import java.util.*
 
 /**

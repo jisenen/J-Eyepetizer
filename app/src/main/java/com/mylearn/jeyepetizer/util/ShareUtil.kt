@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.xhgjky.jeyepetizer.util
+package com.mylearn.jeyepetizer.util
 
 import android.app.Activity
 import android.content.Intent
-import com.xhgjky.jeyepetizer.R
-import com.xhgjky.jeyepetizer.extension.showShortToast
+import com.mylearn.jeyepetizer.R
+import com.mylearn.jeyepetizer.extension.showShortToast
 
 
 const val SHARE_MORE = 0

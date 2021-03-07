@@ -1,4 +1,4 @@
-package com.xhgjky.jeyepetizer.extension
+package com.mylearn.jeyepetizer.extension
 
 import android.util.Log
 import androidx.multidex.BuildConfig

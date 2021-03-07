@@ -1,4 +1,4 @@
-package com.xhgjky.jeyepetizer
+package com.mylearn.jeyepetizer
 
 import org.junit.Test
 

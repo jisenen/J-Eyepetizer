@@ -1,4 +1,4 @@
-package com.xhgjky.jeyepetizer.app
+package com.mylearn.jeyepetizer.app
 
 import android.app.Application
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.xhgjky.jeyepetizer.util
+package com.mylearn.jeyepetizer.util
 
 import android.app.Activity
 import java.lang.ref.WeakReference

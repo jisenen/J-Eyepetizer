@@ -1,11 +1,11 @@
-package com.xhgjky.jeyepetizer.common.view
+package com.mylearn.jeyepetizer.common.view
 
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.xhgjky.jeyepetizer.R
-import com.xhgjky.jeyepetizer.util.TypeFaceUtil
+import com.mylearn.jeyepetizer.R
+import com.mylearn.jeyepetizer.util.TypeFaceUtil
 
 /**
  * @Author: JSS
