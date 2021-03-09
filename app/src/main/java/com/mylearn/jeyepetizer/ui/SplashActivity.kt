@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import com.mylearn.jeyepetizer.MainActivity
 import com.permissionx.guolindev.PermissionX
 import com.tencent.mmkv.MMKV
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseActivity
 import com.mylearn.jeyepetizer.util.GlobalUtil
+import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @Author: JSS
@@ -58,7 +63,14 @@ class SplashActivity : BaseActivity() {
 
     override fun setupViews() {
         super.setupViews()
-
+        ivSplashBG.startAnimation(scaleAnimation)
+        ivLogo.startAnimation(alphaAnimation)
+        CoroutineScope(job).launch {
+            delay(splashDuration)
+            MainActivity.start(this@SplashActivity)
+            finish()
+        }
+        isFirstEntryApp = true
     }
 
     /**
