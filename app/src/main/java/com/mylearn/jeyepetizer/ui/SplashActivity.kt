@@ -63,6 +63,7 @@ class SplashActivity : BaseActivity() {
 
     override fun setupViews() {
         super.setupViews()
+        setStatusBarBackground(R.color.black)
         ivSplashBG.startAnimation(scaleAnimation)
         ivLogo.startAnimation(alphaAnimation)
         CoroutineScope(job).launch {
