@@ -8,15 +8,20 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.mylearn.jeyepetizer.common.ui.BaseActivity
+import com.mylearn.jeyepetizer.event.RefreshEvent
+import com.mylearn.jeyepetizer.extension.showShortToast
 import com.mylearn.jeyepetizer.ui.community.CommunityFragment
 import com.mylearn.jeyepetizer.ui.home.HomePageFragment
 import com.mylearn.jeyepetizer.ui.mine.MineFragment
 import com.mylearn.jeyepetizer.ui.notification.NotificationFragment
+import com.mylearn.jeyepetizer.util.GlobalUtil
 import kotlinx.android.synthetic.main.layout_bottom_navigation_bar.*
+import org.greenrobot.eventbus.EventBus
 import java.security.AccessControlContext
 
 class MainActivity : BaseActivity() , View.OnClickListener{
 
+    private var backPressTime = 0L //返回按钮的时间
     private var homePageFragment: HomePageFragment?=null
     private var communityFragment: CommunityFragment?=null
     private var notificationFragment :NotificationFragment?=null
@@ -40,15 +45,19 @@ class MainActivity : BaseActivity() , View.OnClickListener{
     override fun onClick(p0: View?) {
         when(p0){
             btnHomePage->{
+                notifyUiRefresh(0)
                 setTabSelection(0)
             }
             btnCommunity->{
+                notifyUiRefresh(1)
                 setTabSelection(1)
             }
             btnNotification->{
+                notifyUiRefresh(2)
                 setTabSelection(2)
             }
             btnMine->{
+                notifyUiRefresh(3)
                 setTabSelection(3)
             }
         }
@@ -116,6 +125,45 @@ class MainActivity : BaseActivity() , View.OnClickListener{
             if (mineFragment != null) hide(mineFragment!!)
         }
     }
+
+    /**
+     * 通知界面UI刷新
+     */
+    private fun notifyUiRefresh(selectionIndex:Int){
+        when(selectionIndex){
+            0->{
+               if(ivHomePage.isSelected) EventBus.getDefault().post(RefreshEvent(HomePageFragment::class.java))
+            }
+            1->{
+                if (ivCommunity.isSelected) EventBus.getDefault().post(RefreshEvent(CommunityFragment::class.java))
+            }
+            2 -> {
+                if (ivNotification.isSelected) EventBus.getDefault().post(RefreshEvent(NotificationFragment::class.java))
+            }
+            3 -> {
+                if (ivMine.isSelected) EventBus.getDefault().post(RefreshEvent(MineFragment::class.java))
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            processBackPressed()
+        }
+    }
+
+    private fun processBackPressed() {
+        val now = System.currentTimeMillis()
+        if (now - backPressTime > 2000) {
+            String.format(GlobalUtil.getString(R.string.press_again_to_exit), GlobalUtil.appName).showShortToast()
+            backPressTime = now
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 
     /**
      * 清楚所有选择的状态
