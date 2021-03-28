@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseFragment
 
@@ -20,6 +21,16 @@ class CommendFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return super.onCreateView(inflater.inflate(R.layout.fragment_commend, container, false))
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initRecycler()
+    }
+
+    private fun initRecycler(){
+        val mainLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        mainLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
     }
 
     companion object {

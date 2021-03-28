@@ -65,6 +65,9 @@ dependencies {
     implementation 'com.tencent:mmkv-static:1.2.7'
     //permissionX
     implementation 'com.permissionx.guolindev:permissionx:1.4.0'
+    //SmartRefresh
+    implementation 'com.scwang.smart:refresh-header-material:2.0.0'
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0'
 
     //腾讯
 
