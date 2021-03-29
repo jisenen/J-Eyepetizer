@@ -11,7 +11,7 @@ import com.mylearn.jeyepetizer.common.ui.BaseViewPagerFragment
 import com.mylearn.jeyepetizer.event.MessageEvent
 import com.mylearn.jeyepetizer.event.RefreshEvent
 import com.mylearn.jeyepetizer.event.SwitchPagesEvent
-import com.mylearn.jeyepetizer.logic.entity.TabEntity
+import com.mylearn.jeyepetizer.logic.model.TabEntity
 import com.mylearn.jeyepetizer.ui.home.commend.CommendFragment
 import com.mylearn.jeyepetizer.ui.home.daily.DailyFragment
 import com.mylearn.jeyepetizer.ui.home.discovery.DiscoveryFragment

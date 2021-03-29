@@ -68,7 +68,10 @@ dependencies {
     //SmartRefresh
     implementation 'com.scwang.smart:refresh-header-material:2.0.0'
     implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0'
-
+    //轮播图
+    implementation 'com.github.zhpanvip:BannerViewPager:3.1.2'
+    //圆环
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     //腾讯
 
     //Android Jetpack 组件

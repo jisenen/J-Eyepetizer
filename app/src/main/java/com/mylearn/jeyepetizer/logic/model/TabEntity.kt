@@ -1,4 +1,4 @@
-package com.mylearn.jeyepetizer.logic.entity
+package com.mylearn.jeyepetizer.logic.model
 
 import com.flyco.tablayout.listener.CustomTabEntity
 

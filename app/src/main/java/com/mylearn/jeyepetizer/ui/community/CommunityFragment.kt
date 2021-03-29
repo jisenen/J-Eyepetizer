@@ -5,37 +5,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.flyco.tablayout.listener.CustomTabEntity
 import com.mylearn.jeyepetizer.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.mylearn.jeyepetizer.common.ui.BaseViewPagerFragment
+import com.mylearn.jeyepetizer.event.MessageEvent
+import com.mylearn.jeyepetizer.logic.model.TabEntity
+import com.mylearn.jeyepetizer.ui.community.commend.CommendFragment
+import com.mylearn.jeyepetizer.ui.community.follow.FollowFragment
+import com.mylearn.jeyepetizer.util.GlobalUtil
 
 /**
- * A simple [Fragment] subclass.
- * Use the [CommunityFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * @Author: JSS
+ * @Time: 2021/3/29 14:22
+ * @Description: 社区主页面
  */
-class CommunityFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class CommunityFragment : BaseViewPagerFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override val createTitles = ArrayList<CustomTabEntity>().apply {
+        add(TabEntity(GlobalUtil.getString(R.string.commend)))
+        add(TabEntity(GlobalUtil.getString(R.string.follow)))
     }
+
+    override val createFragments: Array<Fragment> = arrayOf(CommendFragment.newInstance(),FollowFragment.newInstance())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_community, container, false)
+        return super.onCreateView(inflater.inflate(R.layout.fragment_community, container, false))
+    }
+
+    override fun onMessageEvent(messageEvent: MessageEvent) {
+        super.onMessageEvent(messageEvent)
     }
 
     companion object {
