@@ -59,8 +59,13 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
      * 主题创作广场+话题讨论大厅
      */
     inner class HorizontalScrollcardItemCollectionViewHolder(view:View): RecyclerView.ViewHolder(view){
-
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
     }
+
+    /**
+     * 主题创作广场+话题讨论大厅 所处列表适配器
+     */
+    inner class SquareCardOfCommunityContentAdapter(val fragment:CommendFragment,var dataList:List<CommunityRecommend.ItemX>)
 
 
     companion object {
