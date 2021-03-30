@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -72,6 +73,11 @@ dependencies {
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.2'
     //圆环
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
     //腾讯
 
     //Android Jetpack 组件
