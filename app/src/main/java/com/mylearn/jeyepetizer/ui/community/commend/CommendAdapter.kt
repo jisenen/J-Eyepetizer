@@ -1,7 +1,10 @@
 package com.mylearn.jeyepetizer.ui.community.commend
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.Const
@@ -38,13 +41,25 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         HORIZONTAL_SCROLLCARD_ITEM_COLLECTION_TYPE -> {
-            HorizontalScrollcardItemCollectionViewHolder(R.layout.item_community_horizontal_scrollcard_item_collection_type.inflate(parent))
+            HorizontalScrollcardItemCollectionViewHolder(
+                R.layout.item_community_horizontal_scrollcard_item_collection_type.inflate(
+                    parent
+                )
+            )
         }
         HORIZONTAL_SCROLLCARD_TYPE -> {
-            HorizontalScrollcardViewHolder(R.layout.item_community_horizontal_scrollcard_type.inflate(parent))
+            HorizontalScrollcardViewHolder(
+                R.layout.item_community_horizontal_scrollcard_type.inflate(
+                    parent
+                )
+            )
         }
         FOLLOW_CARD_TYPE -> {
-            FollowCardViewHolder(R.layout.item_community_columns_card_follow_card_type.inflate(parent))
+            FollowCardViewHolder(
+                R.layout.item_community_columns_card_follow_card_type.inflate(
+                    parent
+                )
+            )
         }
         else -> {
             EmptyViewHolder(View(parent.context))
@@ -58,14 +73,40 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
     /**
      * 主题创作广场+话题讨论大厅
      */
-    inner class HorizontalScrollcardItemCollectionViewHolder(view:View): RecyclerView.ViewHolder(view){
+    inner class HorizontalScrollcardItemCollectionViewHolder(view: View) :
+        RecyclerView.ViewHolder(view) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
     }
 
     /**
      * 主题创作广场+话题讨论大厅 所处列表适配器
      */
-    inner class SquareCardOfCommunityContentAdapter(val fragment:CommendFragment,var dataList:List<CommunityRecommend.ItemX>)
+    inner class SquareCardOfCommunityContentAdapter(
+        val fragment: CommendFragment,
+        var dataList: List<CommunityRecommend.ItemX>
+    ) :
+        RecyclerView.Adapter<SquareCardOfCommunityContentAdapter.ViewHolder>() {
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val ivBgPicture: ImageView = view.findViewById(R.id.ivBgPicture)
+            val tvTitle: TextView = view.findViewById(R.id.tvTitle)
+            val tvSubTitle: TextView = view.findViewById(R.id.tvSubTitle)
+        }
+
+        override fun getItemCount() = dataList.size
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_community_horizontal_scroll_card_itemcollection_item_type, parent, false))
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val item = dataList[position]
+            holder.ivBgPicture.layoutParams.width = fragment.maxImageWidth
+            holder.ivBgPicture.load(item.data.bgPicture)
+            holder.tvTitle.text = item.data.title
+            holder.tvSubTitle.text = item.data.subTitle
+            holder.itemView.setOnClickListener { ActionUrlUtil.process(fragment, item.data.actionUrl, item.data.title) }
+        }
+
+    }
 
 
     companion object {
