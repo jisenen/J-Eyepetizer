@@ -15,6 +15,8 @@ import com.mylearn.jeyepetizer.common.Const
 import com.mylearn.jeyepetizer.common.holder.EmptyViewHolder
 import com.mylearn.jeyepetizer.extension.*
 import com.mylearn.jeyepetizer.logic.model.CommunityRecommend
+import com.mylearn.jeyepetizer.ui.home.daily.DailyAdapter
+import com.mylearn.jeyepetizer.ui.ugcdetail.UgcDetailActivity
 import com.mylearn.jeyepetizer.util.ActionUrlUtil
 import com.mylearn.jeyepetizer.util.GlobalUtil
 import com.zhpan.bannerview.BannerViewPager
@@ -103,6 +105,7 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
                 holder.ivPlay.gone()
                 holder.ivLayers.gone()
 
+                //精选
                 if (item.data.content.data.library == DailyAdapter.DAILY_LIBRARY_TYPE) holder.tvChoiceness.visible()
 
                 if (item.data.header?.iconType ?: "".trim() == "round") {
@@ -232,6 +235,9 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
         }
     }
 
+    /**
+     * 第二排banner
+     */
     inner class HorizontalScrollcardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bannerViewPager =
             view.findViewById<BannerViewPager<CommunityRecommend.ItemX, BannerAdapter.ViewHolder>>(
@@ -272,6 +278,9 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
 
     }
 
+    /**
+     * 动态瀑布流列表
+     */
     inner class FollowCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivBgPicture: ImageView = view.findViewById(R.id.ivBgPicture)
         val tvChoiceness: TextView = view.findViewById(R.id.tvChoiceness)
@@ -310,6 +319,22 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
                 }
             }
         }
+    }
+
+    /**
+     * 根据屏幕比例计算图片高
+     *
+     * @param originalWidth   服务器图片原始尺寸：宽
+     * @param originalHeight  服务器图片原始尺寸：高
+     * @return 根据比例缩放后的图片高
+     */
+    private fun calculateImageHeight(originalWidth: Int, originalHeight: Int): Int {
+        //服务器数据异常处理
+        if (originalWidth == 0 || originalHeight == 0) {
+            logW(TAG, GlobalUtil.getString(R.string.image_size_error))
+            return fragment.maxImageWidth
+        }
+        return fragment.maxImageWidth * originalHeight / originalWidth
     }
 
 
