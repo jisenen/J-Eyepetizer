@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.mylearn.jeyepetizer.R
 
-
+ /**
+  * @Author: JSS
+  * @Time: 2021/4/21 15:31
+  * @Description: 社区——关注页面
+  */
 class FollowFragment : Fragment() {
 
     override fun onCreateView(

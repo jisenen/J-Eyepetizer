@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseActivity
 import com.mylearn.jeyepetizer.logic.model.CommunityRecommend
+import com.mylearn.jeyepetizer.util.IntentDataHolderUtil
 
 /**
   * @Author: JSS

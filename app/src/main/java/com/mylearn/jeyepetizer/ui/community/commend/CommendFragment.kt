@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.lifecycle.ViewModelProvider
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseFragment
 import com.mylearn.jeyepetizer.extension.dp2px
@@ -19,6 +20,9 @@ import com.mylearn.jeyepetizer.util.GlobalUtil
   * @Description: 社区——推荐页面
   */
 class CommendFragment : BaseFragment() {
+
+    private viewModel by lazy{ViewModelProvider(this,InjectorUtil.getCommunityCommendViewModelFactory()).get(CommendViewModel::class.java))}
+    private lateinit var adapter: CommendAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +37,7 @@ class CommendFragment : BaseFragment() {
     }
 
     private fun initRecycler(){
-
+        adapter = CommendAdapter(this,)
     }
 
     /**
