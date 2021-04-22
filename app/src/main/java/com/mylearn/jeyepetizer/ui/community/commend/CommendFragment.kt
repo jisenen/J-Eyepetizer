@@ -3,18 +3,21 @@ package com.mylearn.jeyepetizer.ui.community.commend
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseFragment
 import com.mylearn.jeyepetizer.extension.dp2px
+import com.mylearn.jeyepetizer.extension.showShortToast
 import com.mylearn.jeyepetizer.util.GlobalUtil
 import com.mylearn.jeyepetizer.util.InjectorUtil
+import com.mylearn.jeyepetizer.util.ResponseHandler
+import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.fragment_commend.*
 
 /**
@@ -24,7 +27,12 @@ import kotlinx.android.synthetic.main.fragment_commend.*
  */
 class CommendFragment : BaseFragment() {
 
-private val viewModel by lazy { ViewModelProvider(this,InjectorUtil.getCommunityCommendViewModelFactory()).get(CommendViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            InjectorUtil.getCommunityCommendViewModelFactory()
+        ).get(CommendViewModel::class.java)
+    }
 
     private lateinit var adapter: CommendAdapter
 
@@ -41,15 +49,68 @@ private val viewModel by lazy { ViewModelProvider(this,InjectorUtil.getCommunity
         observe()
     }
 
+    override fun firstLoadData() {
+        super.firstLoadData()
+        startLoading()
+    }
+
+    override fun startLoading() {
+        super.startLoading()
+        viewModel.onRefresh()
+    }
+
+    override fun loadFailed(msg: String?) {
+        super.loadFailed(msg)
+        showLoadErrorView(msg ?: GlobalUtil.getString(R.string.unknown_error)) { startLoading() }
+    }
+
     /**
      * 监听列表数据变化
      */
-    private fun observe(){
-
+    private fun observe() {
+        viewModel.dataListLiveData.observe(viewLifecycleOwner, Observer { result ->
+            val response = result.getOrNull()
+            if (response == null) {
+                ResponseHandler.getFailureTips(result.exceptionOrNull())
+                    .let { if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else it.showShortToast() }
+                refreshLayout.closeHeaderOrFooter()
+                return@Observer
+            }
+            loadFinished()
+            viewModel.nextPageUrl = response.nextPageUrl
+            if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
+                refreshLayout.closeHeaderOrFooter()
+                return@Observer
+            }
+            if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
+                refreshLayout.finishLoadMoreWithNoMoreData()
+                return@Observer
+            }
+            when (refreshLayout.state) {
+                RefreshState.None, RefreshState.Refreshing -> {
+                    viewModel.dataList.clear()
+                    viewModel.dataList.addAll(response.itemList)
+                    adapter.notifyDataSetChanged()
+                }
+                RefreshState.Loading -> {
+                    val itemCount = viewModel.dataList.size
+                    viewModel.dataList.addAll(response.itemList)
+                    adapter.notifyItemRangeInserted(itemCount, response.itemList.size)
+                }
+                else -> {
+                }
+            }
+            if (response.nextPageUrl.isNullOrEmpty()) {
+                refreshLayout.finishLoadMoreWithNoMoreData()
+            } else {
+                refreshLayout.closeHeaderOrFooter()
+            }
+        })
     }
 
+
     private fun initRecycler() {
-        adapter = CommendAdapter(this,viewModel.dataList)
+        adapter = CommendAdapter(this, viewModel.dataList)
         val mainLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         mainLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         recyclerView.layoutManager = mainLayoutManager
