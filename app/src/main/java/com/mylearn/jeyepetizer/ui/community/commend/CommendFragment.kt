@@ -9,19 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseFragment
 import com.mylearn.jeyepetizer.extension.dp2px
 import com.mylearn.jeyepetizer.util.GlobalUtil
+import com.mylearn.jeyepetizer.util.InjectorUtil
+import kotlinx.android.synthetic.main.fragment_commend.*
 
 /**
-  * @Author: JSS
-  * @Time: 2021/3/29 15:19
-  * @Description: 社区——推荐页面
-  */
+ * @Author: JSS
+ * @Time: 2021/3/29 15:19
+ * @Description: 社区——推荐页面
+ */
 class CommendFragment : BaseFragment() {
 
-    private viewModel by lazy{ViewModelProvider(this,InjectorUtil.getCommunityCommendViewModelFactory()).get(CommendViewModel::class.java))}
+private val viewModel by lazy { ViewModelProvider(this,InjectorUtil.getCommunityCommendViewModelFactory()).get(CommendViewModel::class.java) }
+
     private lateinit var adapter: CommendAdapter
 
     override fun onCreateView(
@@ -34,10 +38,27 @@ class CommendFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecycler()
+        observe()
     }
 
-    private fun initRecycler(){
-        adapter = CommendAdapter(this,)
+    /**
+     * 监听列表数据变化
+     */
+    private fun observe(){
+
+    }
+
+    private fun initRecycler() {
+        adapter = CommendAdapter(this,viewModel.dataList)
+        val mainLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        mainLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+        recyclerView.layoutManager = mainLayoutManager
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(CommendAdapter.ItemDecoration(this))
+        recyclerView.setHasFixedSize(true)
+        recyclerView.itemAnimator = null
+        refreshLayout.setOnRefreshListener { viewModel.onRefresh() }
+        refreshLayout.setOnLoadMoreListener { viewModel.onLoadMore() }
     }
 
     /**
