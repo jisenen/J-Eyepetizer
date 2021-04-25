@@ -152,7 +152,7 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
             }
             else -> {
                 holder.itemView.gone()
-                if (BuildConfig.DEBUG) "${TAG}:${Const.Toast.BIND_VIEWHOLDER_TYPE_WARN}\n${holder}".showToast()
+//                if (BuildConfig.DEBUG) "${TAG}:${Const.Toast.BIND_VIEWHOLDER_TYPE_WARN}\n${holder}".showShortToast()
             }
         }
     }

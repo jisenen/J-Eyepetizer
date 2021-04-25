@@ -23,13 +23,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.eyepetizer.android.Const
-import com.eyepetizer.android.R
-import com.eyepetizer.android.extension.setDrawable
-import com.eyepetizer.android.extension.share
-import com.eyepetizer.android.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.umeng.analytics.MobclickAgent
+import com.mylearn.jeyepetizer.R
+import com.mylearn.jeyepetizer.common.Const
+import com.mylearn.jeyepetizer.extension.setDrawable
+import com.mylearn.jeyepetizer.extension.share
+import com.mylearn.jeyepetizer.util.*
 import kotlinx.android.synthetic.main.fragment_share_dialog.*
 
 
@@ -86,11 +85,11 @@ open class ShareDialogFragment : BottomSheetDialogFragment() {
     }
 
     fun showDialog(activity: AppCompatActivity, shareContent: String) {
-        if (shareContent.contains(WebViewActivity.DEFAULT_URL)) {
-            MobclickAgent.onEvent(activity, Const.Mobclick.EVENT1)
-        } else {
-            MobclickAgent.onEvent(activity, Const.Mobclick.EVENT2)
-        }
+//        if (shareContent.contains(WebViewActivity.DEFAULT_URL)) {
+//            MobclickAgent.onEvent(activity, Const.Mobclick.EVENT1)
+//        } else {
+//            MobclickAgent.onEvent(activity, Const.Mobclick.EVENT2)
+//        }
         show(activity.supportFragmentManager, "share_dialog")
         this.shareContent = shareContent
     }

@@ -16,10 +16,10 @@
 
 package com.eyepetizer.android.logic.network.api
 
-import com.eyepetizer.android.logic.model.VideoBeanForClient
-import com.eyepetizer.android.logic.model.VideoRelated
-import com.eyepetizer.android.logic.model.VideoReplies
-import com.eyepetizer.android.logic.network.ServiceCreator
+import com.mylearn.jeyepetizer.logic.model.VideoBeanForClient
+import com.mylearn.jeyepetizer.logic.model.VideoRelated
+import com.mylearn.jeyepetizer.logic.model.VideoReplies
+import com.mylearn.jeyepetizer.logic.network.NetServiceCreator
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -57,7 +57,7 @@ interface VideoService {
         /**
          * 视频详情-评论列表URL
          */
-        const val VIDEO_REPLIES_URL = "${ServiceCreator.BASE_URL}api/v2/replies/video?videoId="
+        const val VIDEO_REPLIES_URL = "${NetServiceCreator.BASE_URL}api/v2/replies/video?videoId="
     }
 
 }
