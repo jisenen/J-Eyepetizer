@@ -17,6 +17,7 @@
 package com.mylearn.jeyepetizer.util
 
 import com.mylearn.jeyepetizer.logic.MainPageRepository
+import com.mylearn.jeyepetizer.logic.VideoRepository
 import com.mylearn.jeyepetizer.logic.dao.EyepetizerDatabase
 import com.mylearn.jeyepetizer.logic.network.EyepetizerNetwork
 
@@ -33,20 +34,20 @@ object InjectorUtil {
 
     private fun getViedoRepository() = VideoRepository.getInstance(EyepetizerDatabase.getVideoDao(), EyepetizerNetwork.getInstance())
 
-    fun getDiscoveryViewModelFactory() = DiscoveryViewModelFactory(getMainPageRepository())
+//    fun getDiscoveryViewModelFactory() = DiscoveryViewModelFactory(getMainPageRepository())
 
-    fun getHomePageCommendViewModelFactory() = CommendViewModelFactory(getMainPageRepository())
+    fun getHomePageCommendViewModelFactory() = com.mylearn.jeyepetizer.ui.home.commend.CommendViewModelFactory(getMainPageRepository())
 
-    fun getDailyViewModelFactory() = DailyViewModelFactory(getMainPageRepository())
+//    fun getDailyViewModelFactory() = DailyViewModelFactory(getMainPageRepository())
 
-    fun getCommunityCommendViewModelFactory() = CommendViewModelFactory(getMainPageRepository())
+    fun getCommunityCommendViewModelFactory() = com.mylearn.jeyepetizer.ui.community.commend.CommendViewModelFactory(getMainPageRepository())
 
-    fun getFollowViewModelFactory() = FollowViewModelFactory(getMainPageRepository())
-
-    fun getPushViewModelFactory() = PushViewModelFactory(getMainPageRepository())
-
-    fun getSearchViewModelFactory() = SearchViewModelFactory(getMainPageRepository())
-
-    fun getNewDetailViewModelFactory() = NewDetailViewModelFactory(getViedoRepository())
+//    fun getFollowViewModelFactory() = FollowViewModelFactory(getMainPageRepository())
+//
+//    fun getPushViewModelFactory() = PushViewModelFactory(getMainPageRepository())
+//
+//    fun getSearchViewModelFactory() = SearchViewModelFactory(getMainPageRepository())
+//
+//    fun getNewDetailViewModelFactory() = NewDetailViewModelFactory(getViedoRepository())
 
 }

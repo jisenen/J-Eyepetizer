@@ -67,7 +67,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
         super.onResume()
         //当Fragment在屏幕上可见并且没有加载过数据时调用
         if (!mHasLoadedData) {
-            firstLoadData()
+            loadDataOnce()
             mHasLoadedData = true
         }
     }
@@ -88,6 +88,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
      */
     fun onCreateView(view: View): View {
         rootView = view
+        loading = view.findViewById(R.id.loading)
         if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
         return view
     }
@@ -150,12 +151,11 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     }
 
     /**
-     * 页面首次启动可见时调用一次该方法
+     * 页面首次可见时调用一次该方法，在这里可以请求网络数据等。
      */
-    open fun firstLoadData() {
+    open fun loadDataOnce() {
 
     }
-
     /**
      * 调用系统原生分享
      *

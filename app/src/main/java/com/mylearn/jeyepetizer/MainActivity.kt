@@ -8,6 +8,7 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.mylearn.jeyepetizer.common.ui.BaseActivity
+import com.mylearn.jeyepetizer.event.MessageEvent
 import com.mylearn.jeyepetizer.event.RefreshEvent
 import com.mylearn.jeyepetizer.extension.showShortToast
 import com.mylearn.jeyepetizer.ui.community.CommunityFragment
@@ -144,6 +145,10 @@ class MainActivity : BaseActivity() , View.OnClickListener{
                 if (ivMine.isSelected) EventBus.getDefault().post(RefreshEvent(MineFragment::class.java))
             }
         }
+    }
+
+    override fun onMessageEvent(messageEvent: MessageEvent) {
+        super.onMessageEvent(messageEvent)
     }
 
     override fun onBackPressed() {

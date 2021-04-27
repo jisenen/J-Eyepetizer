@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mylearn.jeyepetizer.BuildConfig
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.Const
 import com.mylearn.jeyepetizer.common.holder.EmptyViewHolder
@@ -152,7 +153,7 @@ class CommendAdapter(val fragment: CommendFragment, var dataList: List<Community
             }
             else -> {
                 holder.itemView.gone()
-//                if (BuildConfig.DEBUG) "${TAG}:${Const.Toast.BIND_VIEWHOLDER_TYPE_WARN}\n${holder}".showShortToast()
+                if (BuildConfig.DEBUG) "${TAG}:${Const.Toast.BIND_VIEWHOLDER_TYPE_WARN}\n${holder}".showShortToast()
             }
         }
     }

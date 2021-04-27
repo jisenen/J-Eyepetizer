@@ -9,10 +9,13 @@ import com.flyco.tablayout.listener.CustomTabEntity
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseViewPagerFragment
 import com.mylearn.jeyepetizer.event.MessageEvent
+import com.mylearn.jeyepetizer.event.RefreshEvent
+import com.mylearn.jeyepetizer.event.SwitchPagesEvent
 import com.mylearn.jeyepetizer.logic.model.TabEntity
 import com.mylearn.jeyepetizer.ui.community.commend.CommendFragment
 import com.mylearn.jeyepetizer.ui.community.follow.FollowFragment
 import com.mylearn.jeyepetizer.util.GlobalUtil
+import org.greenrobot.eventbus.EventBus
 
 /**
  * @Author: JSS
@@ -37,6 +40,20 @@ class CommunityFragment : BaseViewPagerFragment() {
 
     override fun onMessageEvent(messageEvent: MessageEvent) {
         super.onMessageEvent(messageEvent)
+        if (messageEvent is RefreshEvent && this::class.java == messageEvent.activityClass) {
+            when (viewPager?.currentItem) {
+                0 -> EventBus.getDefault().post(RefreshEvent(CommendFragment::class.java))
+                1 -> EventBus.getDefault().post(RefreshEvent(FollowFragment::class.java))
+                else -> {
+                }
+            }
+        } else if (messageEvent is SwitchPagesEvent) {
+            when (messageEvent.activityClass) {
+                CommendFragment::class.java -> viewPager?.currentItem = 0
+                else -> {
+                }
+            }
+        }
     }
 
     companion object {

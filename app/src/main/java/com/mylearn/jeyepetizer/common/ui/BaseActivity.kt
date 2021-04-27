@@ -10,11 +10,14 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
 import com.mylearn.jeyepetizer.R
+import com.mylearn.jeyepetizer.event.MessageEvent
 
 import com.mylearn.jeyepetizer.extension.logD
 import com.mylearn.jeyepetizer.util.ActivityControlUtil
 import com.mylearn.jeyepetizer.util.ShareUtil
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 import java.lang.ref.WeakReference
 
@@ -121,6 +124,11 @@ open class BaseActivity :AppCompatActivity(){
         val tvTitle = findViewById<TextView>(R.id.tvTitle)
         navigateBefore?.setOnClickListener { finish() }
         tvTitle?.isSelected = true  //获取焦点，实现跑马灯效果。
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    open fun onMessageEvent(messageEvent: MessageEvent) {
 
     }
 

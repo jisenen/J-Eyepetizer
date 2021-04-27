@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.annotation.CallSuper
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mylearn.jeyepetizer.R
 import com.mylearn.jeyepetizer.common.ui.BaseFragment
+import com.mylearn.jeyepetizer.event.MessageEvent
+import com.mylearn.jeyepetizer.event.RefreshEvent
 import com.mylearn.jeyepetizer.extension.dp2px
 import com.mylearn.jeyepetizer.extension.showShortToast
 import com.mylearn.jeyepetizer.util.GlobalUtil
@@ -45,12 +48,21 @@ class CommendFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initRecycler()
+        adapter = CommendAdapter(this, viewModel.dataList)
+        val mainLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        mainLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+        recyclerView.layoutManager = mainLayoutManager
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(CommendAdapter.ItemDecoration(this))
+        recyclerView.setHasFixedSize(true)
+        recyclerView.itemAnimator = null
+        refreshLayout.setOnRefreshListener { viewModel.onRefresh() }
+        refreshLayout.setOnLoadMoreListener { viewModel.onLoadMore() }
         observe()
     }
 
-    override fun firstLoadData() {
-        super.firstLoadData()
+    override fun loadDataOnce() {
+        super.loadDataOnce()
         startLoading()
     }
 
@@ -59,20 +71,25 @@ class CommendFragment : BaseFragment() {
         viewModel.onRefresh()
     }
 
+    @CallSuper
     override fun loadFailed(msg: String?) {
         super.loadFailed(msg)
         showLoadErrorView(msg ?: GlobalUtil.getString(R.string.unknown_error)) { startLoading() }
     }
 
-    /**
-     * 监听列表数据变化
-     */
+    override fun onMessageEvent(messageEvent: MessageEvent) {
+        super.onMessageEvent(messageEvent)
+        if (messageEvent is RefreshEvent && javaClass == messageEvent.activityClass) {
+            refreshLayout.autoRefresh()
+            if (recyclerView.adapter?.itemCount ?: 0 > 0) recyclerView.scrollToPosition(0)
+        }
+    }
+
     private fun observe() {
         viewModel.dataListLiveData.observe(viewLifecycleOwner, Observer { result ->
             val response = result.getOrNull()
             if (response == null) {
-                ResponseHandler.getFailureTips(result.exceptionOrNull())
-                    .let { if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else it.showShortToast() }
+                ResponseHandler.getFailureTips(result.exceptionOrNull()).let { if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else it.showShortToast() }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
@@ -106,20 +123,6 @@ class CommendFragment : BaseFragment() {
                 refreshLayout.closeHeaderOrFooter()
             }
         })
-    }
-
-
-    private fun initRecycler() {
-        adapter = CommendAdapter(this, viewModel.dataList)
-        val mainLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        mainLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
-        recyclerView.layoutManager = mainLayoutManager
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(CommendAdapter.ItemDecoration(this))
-        recyclerView.setHasFixedSize(true)
-        recyclerView.itemAnimator = null
-        refreshLayout.setOnRefreshListener { viewModel.onRefresh() }
-        refreshLayout.setOnLoadMoreListener { viewModel.onLoadMore() }
     }
 
     /**
